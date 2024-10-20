@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - lcov.info - src/handler.dart</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="title">LCOV - code coverage report</td></tr>
+            <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+            <tr>
+              <td width="100%">
+                <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="10%" class="headerValue"><a href="../index.html" title="Click to go to top-level">top level</a> - <a href="index.html" title="Click to go to directory src">src</a> - handler.dart<span style="font-size: 80%;"> (source / <a href="handler.dart.func-c.html" title="Click to go to function table">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td width="5%" class="headerCovTableHead">Coverage</td>
+            <td width="5%" class="headerCovTableHead" title="Covered + Uncovered code">Total</td>
+            <td width="5%" class="headerCovTableHead" title="Exercised code only">Hit</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">lcov.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
+            <td class="headerCovTableEntry">11</td>
+            <td class="headerCovTableEntry">11</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test Date:</td>
+            <td class="headerValue">2024-10-20 21:20:16</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntryHi">-</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">0</td>
+          </tr>
+                  <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+          </table>
+
+          <table cellpadding=0 cellspacing=0 border=0>
+            <tr>
+              <td><br></td>
+            </tr>
+            <tr>
+              <td>
+<pre class="sourceHeading">            Line data    Source code</pre>
+<pre class="source">
+<span id="L1"><span class="lineNum">       1</span>              : import 'package:dio/dio.dart';</span>
+<span id="L2"><span class="lineNum">       2</span>              : </span>
+<span id="L3"><span class="lineNum">       3</span>              : import 'response.dart';</span>
+<span id="L4"><span class="lineNum">       4</span>              : </span>
+<span id="L5"><span class="lineNum">       5</span>              : typedef Matcher&lt;T&gt; = bool Function(T value);</span>
+<span id="L6"><span class="lineNum">       6</span>              : </span>
+<span id="L7"><span class="lineNum">       7</span>              : typedef FantasmaResponseCallback = IFantasmaResponse Function(RequestOptions);</span>
+<span id="L8"><span class="lineNum">       8</span>              : </span>
+<span id="L9"><span class="lineNum">       9</span>              : class RequestCustomHandler {</span>
+<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC tlaBgGNC">           3 :   const RequestCustomHandler(this.callback, {</span></span>
+<span id="L11"><span class="lineNum">      11</span>              :     this.matchesPath,</span>
+<span id="L12"><span class="lineNum">      12</span>              :     this.matchesMethod,</span>
+<span id="L13"><span class="lineNum">      13</span>              :     this.matchesHeaders,</span>
+<span id="L14"><span class="lineNum">      14</span>              :     this.matchesQueryParameters,</span>
+<span id="L15"><span class="lineNum">      15</span>              :     this.matchesData,</span>
+<span id="L16"><span class="lineNum">      16</span>              :   });</span>
+<span id="L17"><span class="lineNum">      17</span>              : </span>
+<span id="L18"><span class="lineNum">      18</span>              :   final FantasmaResponseCallback callback;</span>
+<span id="L19"><span class="lineNum">      19</span>              :   final Matcher&lt;String&gt;? matchesPath;</span>
+<span id="L20"><span class="lineNum">      20</span>              :   final Matcher&lt;String&gt;? matchesMethod;</span>
+<span id="L21"><span class="lineNum">      21</span>              :   final Matcher&lt;Map&lt;String, dynamic&gt;&gt;? matchesHeaders;</span>
+<span id="L22"><span class="lineNum">      22</span>              :   final Matcher&lt;Map&lt;String, dynamic&gt;&gt;? matchesQueryParameters;</span>
+<span id="L23"><span class="lineNum">      23</span>              :   final Matcher&lt;dynamic&gt;? matchesData;</span>
+<span id="L24"><span class="lineNum">      24</span>              : </span>
+<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">           3 :   bool matches({</span></span>
+<span id="L26"><span class="lineNum">      26</span>              :     required String path,</span>
+<span id="L27"><span class="lineNum">      27</span>              :     required String method,</span>
+<span id="L28"><span class="lineNum">      28</span>              :     required Map&lt;String, dynamic&gt; headers,</span>
+<span id="L29"><span class="lineNum">      29</span>              :     required Map&lt;String, dynamic&gt; queryParameters,</span>
+<span id="L30"><span class="lineNum">      30</span>              :     dynamic data,</span>
+<span id="L31"><span class="lineNum">      31</span>              :   }) {</span>
+<span id="L32"><span class="lineNum">      32</span>              :     // Check if the path matcher exists and evaluate it, or default to true</span>
+<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">           6 :     final hasPathMatch = matchesPath?.call(path) ?? true;</span></span>
+<span id="L34"><span class="lineNum">      34</span>              : </span>
+<span id="L35"><span class="lineNum">      35</span>              :     // Check if the method matcher exists and evaluate it, or default to true</span>
+<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">           6 :     final hasMethodMatch = matchesMethod?.call(method) ?? true;</span></span>
+<span id="L37"><span class="lineNum">      37</span>              : </span>
+<span id="L38"><span class="lineNum">      38</span>              :     // Check if the headers matcher exists and evaluate it, or default to true</span>
+<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">           5 :     final hasHeadersMatch = matchesHeaders?.call(headers) ?? true;</span></span>
+<span id="L40"><span class="lineNum">      40</span>              : </span>
+<span id="L41"><span class="lineNum">      41</span>              :     // Check if the query parameters matcher exists and evaluate it, or default to true</span>
+<span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">           5 :     final hasQueryParametersMatch = matchesQueryParameters?.call(queryParameters) ?? true;</span></span>
+<span id="L43"><span class="lineNum">      43</span>              : </span>
+<span id="L44"><span class="lineNum">      44</span>              :     // Check if the data matcher exists and evaluate it, or default to true</span>
+<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">           4 :     final hasDataMatch = matchesData?.call(data) ?? true;</span></span>
+<span id="L46"><span class="lineNum">      46</span>              : </span>
+<span id="L47"><span class="lineNum">      47</span>              :     // Return true only if all matchers pass their conditions</span>
+<span id="L48"><span class="lineNum">      48</span>              :     return hasPathMatch &amp;&amp; hasMethodMatch &amp;&amp; hasHeadersMatch &amp;&amp; hasQueryParametersMatch &amp;&amp; hasDataMatch;</span>
+<span id="L49"><span class="lineNum">      49</span>              :   }</span>
+<span id="L50"><span class="lineNum">      50</span>              : </span>
+<span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC">           2 :   Future&lt;IFantasmaResponse&gt; reply(RequestOptions requestOptions) async {</span></span>
+<span id="L52"><span class="lineNum">      52</span>              :     // Generate a mock response</span>
+<span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">           4 :     final IFantasmaResponse mockResponse = callback(requestOptions);</span></span>
+<span id="L54"><span class="lineNum">      54</span>              : </span>
+<span id="L55"><span class="lineNum">      55</span>              :     // If a delay is defined in the response, await the delay</span>
+<span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">           2 :     if (mockResponse.delay != null) {</span></span>
+<span id="L57"><span class="lineNum">      57</span> <span class="tlaGNC">           2 :       await Future.delayed(mockResponse.delay!);</span></span>
+<span id="L58"><span class="lineNum">      58</span>              :     }</span>
+<span id="L59"><span class="lineNum">      59</span>              : </span>
+<span id="L60"><span class="lineNum">      60</span>              :     // Resolve the mock response to the handler</span>
+<span id="L61"><span class="lineNum">      61</span>              :     return mockResponse;</span>
+<span id="L62"><span class="lineNum">      62</span>              :   }</span>
+<span id="L63"><span class="lineNum">      63</span>              : }</span>
+        </pre>
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+            <tr><td class="versionInfo">Generated by: <a href="https://github.com//linux-test-project/lcov" target="_parent">LCOV version 2.1-1</a></td></tr>
+          </table>
+          <br>
+
+</body>
+</html>
